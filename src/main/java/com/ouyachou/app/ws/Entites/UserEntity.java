@@ -20,9 +20,11 @@ public class UserEntity implements Serializable {
 	@Column(nullable=false, length=50)
 	
 	private String firstName;
-	@Column(nullable=false)
+	@Column(nullable=false, length=50)
 
 	private String lastName;
+	
+	@column
 	private String email;
 	private String encryptedPassword;
 	private String emilVerificationToken;
