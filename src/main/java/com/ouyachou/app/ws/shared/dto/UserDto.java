@@ -13,7 +13,7 @@ public class UserDto implements Serializable {
     private String password;
     private String encryptedPassword;
     private String emailVerificationToken;
-    private String emailVerificationStatuss;
+    private Boolean emailVerificationStatus;
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -63,8 +63,8 @@ public class UserDto implements Serializable {
         this.userId = userId;
     }
 
-    public String getEmailVerificationStatuss() {
-        return emailVerificationStatuss;
+    public Boolean getEmailVerificationStatuss() {
+        return emailVerificationStatus;
     }
 
     public String getEncryptedPassword() {
@@ -79,8 +79,8 @@ public class UserDto implements Serializable {
         this.emailVerificationToken = emailVerificationToken;
     }
 
-    public void setEmailVerificationStatuss(String emailVerificationStatuss) {
-        this.emailVerificationStatuss = emailVerificationStatuss;
+    public void setEmailVerificationStatus(String emailVerificationStatuss) {
+        this.emailVerificationStatus = emailVerificationStatus;
     }
 
     public void setEncryptedPassword(String encryptedPassword) {
