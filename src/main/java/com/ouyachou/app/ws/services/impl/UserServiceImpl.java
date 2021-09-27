@@ -8,6 +8,7 @@ import com.ouyachou.app.ws.shared.dto.UserDto;
 import com.ouyachou.app.ws.shared.dto.Utils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     Utils utils;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
     public UserDto createUser(UserDto user){
 
         UserEntity checkUser = userRepository.findByEmail(user.getEmail());
@@ -31,7 +36,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(user, userEntity);
 
-        userEntity.setEncryptedPassword("test paswword");
+        userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userEntity.setUserId(utils.generateStringId(32));
 
         UserEntity newUser = userRepository.save(userEntity);
