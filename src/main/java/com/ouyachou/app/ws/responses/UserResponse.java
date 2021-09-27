@@ -33,6 +33,11 @@ public class UserResponse {
         return lastName;
     }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-
+    public String getUserId() {
+        return userId;
+    }
 }
