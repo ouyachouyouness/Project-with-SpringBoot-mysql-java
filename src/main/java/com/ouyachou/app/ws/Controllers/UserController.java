@@ -1,5 +1,6 @@
 package com.ouyachou.app.ws.Controllers;
 
+import com.ouyachou.app.ws.request.UserRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,16 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 
+
+	@PostMapping
+	public String createUser(@RequestBody UserRequest userRequest ) {
+
+		return userRequest.getEmail();
+	}
+
 	@GetMapping
 	public String getUser() {
 
-		return "get user was called";
-	}
-
-	@PostMapping
-	public String createUser() {
-
-		return " user was created";
+		return " user was get it";
 
 	}
 
