@@ -28,6 +28,6 @@ public class UserServiceImpl implements UserService {
 
         BeanUtils.copyProperties(newUser,userDto);
 
-        return null;
+        return userDto;
     }
 }
