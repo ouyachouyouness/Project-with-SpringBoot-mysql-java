@@ -32,8 +32,8 @@ public class UserEntity implements Serializable {
     @Column(nullable=true)
     private String emailVerificationToken;
 
-    @Column(columnDefinition = "boolean default false")
-    private Boolean emailVerificationStatus;
+    @Column(nullable = false)
+    private Boolean emailVerificationStatus = false;
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
