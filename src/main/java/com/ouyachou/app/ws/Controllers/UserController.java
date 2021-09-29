@@ -57,7 +57,7 @@ public class UserController {
 
 		BeanUtils.copyProperties(userRequest, userDto);
 
-		UserDto updateUser = userService.updateUser(userDto);
+		UserDto updateUser = userService.updateUser(id, userDto);
 
 		UserResponse userResponse = new UserResponse();
 
