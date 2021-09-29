@@ -8,6 +8,8 @@ import com.ouyachou.app.ws.repositories.UserRepository;
 import com.ouyachou.app.ws.shared.dto.UserDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -20,7 +22,7 @@ public class UserController {
 
 
 	@PostMapping
-	public UserResponse createUser(@RequestBody UserRequest userRequest ) {
+	public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest ) {
 
 
 
@@ -34,11 +36,11 @@ public class UserController {
 		UserResponse userResponse = new UserResponse();
 
 		BeanUtils.copyProperties(createUser, userResponse);
-		return userResponse;
+		return new ResponseEntity<UserResponse>(userResponse,HttpStatus.CREATED);
 	}
 
 	@GetMapping(path = "/{id}")
-	public UserResponse getUser(@PathVariable String id) {
+	public ResponseEntity<UserResponse> getUser(@PathVariable String id) {
 
 		UserDto userDto = userService.getUserByUserId(id);
 
@@ -46,12 +48,12 @@ public class UserController {
 
 		BeanUtils.copyProperties(userDto,userResponse);
 
-		return userResponse;
+		return new ResponseEntity<UserResponse>(userResponse,HttpStatus.OK);
 
 	}
 
 	@PutMapping(path = "/{id}")
-	public UserResponse updateUser(@PathVariable String id, @RequestBody UserRequest userRequest) {
+	public ResponseEntity<UserResponse> updateUser(@PathVariable String id, @RequestBody UserRequest userRequest) {
 
 		UserDto userDto = new UserDto();
 
@@ -63,14 +65,15 @@ public class UserController {
 
 		BeanUtils.copyProperties(updateUser, userResponse);
 
-		return userResponse;
+		return new ResponseEntity<UserResponse>(userResponse,HttpStatus.ACCEPTED);
+
 	}
 
 	@DeleteMapping(path = "/{id}")
-	public String deleteUser(@PathVariable String id) {
+	public ResponseEntity<Object> deleteUser(@PathVariable String id) {
 
 		userService.deleteUser(id);
 
-		return "delete user was called";
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
