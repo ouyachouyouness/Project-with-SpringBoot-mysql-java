@@ -38,9 +38,15 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/{id}")
-	public String getUser(@PathVariable String id) {
+	public UserResponse getUser(@PathVariable String id) {
 
-		return " user was get it"+ id;
+		UserDto userDto = userService.getUserByUserId(id);
+
+		UserResponse userResponse = new UserResponse();
+
+		BeanUtils.copyProperties(userDto,userResponse);
+
+		return userResponse;
 
 	}
 
