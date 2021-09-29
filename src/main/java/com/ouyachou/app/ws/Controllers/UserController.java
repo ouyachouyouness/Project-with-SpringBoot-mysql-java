@@ -50,9 +50,20 @@ public class UserController {
 
 	}
 
-	@PutMapping
-	public String updateUser() {
-		return "update user was called";
+	@PutMapping(path = "/{id}")
+	public UserResponse updateUser(@PathVariable String id, @RequestBody UserRequest userRequest) {
+
+		UserDto userDto = new UserDto();
+
+		BeanUtils.copyProperties(userRequest, userDto);
+
+		UserDto updateUser = userService.updateUser(userDto);
+
+		UserResponse userResponse = new UserResponse();
+
+		BeanUtils.copyProperties(updateUser, userResponse);
+
+		return userResponse;
 	}
 
 	@DeleteMapping
