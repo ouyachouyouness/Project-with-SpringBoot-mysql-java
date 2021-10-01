@@ -2,6 +2,7 @@ package com.ouyachou.app.ws.Controllers;
 
 import com.ouyachou.app.ws.Entites.UserEntity;
 import com.ouyachou.app.ws.request.UserRequest;
+import com.ouyachou.app.ws.responses.ErrorMessages;
 import com.ouyachou.app.ws.responses.UserResponse;
 import com.ouyachou.app.ws.services.UserService;
 import com.ouyachou.app.ws.repositories.UserRepository;
@@ -9,6 +10,7 @@ import com.ouyachou.app.ws.shared.dto.UserDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +23,10 @@ public class UserController {
 	UserService userService;
 
 
-	@PostMapping
-	public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest ) {
+	@PostMapping(consumes =MediaType.APPLICATION_XML_VALUE, produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest ) throws Exception {
 
+		if(userRequest.getFirstName().isEmpty()) throw new Exception(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
 
 
@@ -39,7 +42,7 @@ public class UserController {
 		return new ResponseEntity<UserResponse>(userResponse,HttpStatus.CREATED);
 	}
 
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<UserResponse> getUser(@PathVariable String id) {
 
 		UserDto userDto = userService.getUserByUserId(id);
