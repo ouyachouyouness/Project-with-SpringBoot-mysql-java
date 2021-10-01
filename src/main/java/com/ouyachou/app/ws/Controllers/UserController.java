@@ -15,6 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/users") // localhost:8080/users
@@ -41,6 +44,23 @@ public class UserController {
 
 		BeanUtils.copyProperties(createUser, userResponse);
 		return new ResponseEntity<UserResponse>(userResponse,HttpStatus.CREATED);
+	}
+
+	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+	public List<UserResponse> getAllUsers(@RequestParam(value = "page") int page,@RequestParam(value = "limit") int limit){
+
+		List<UserResponse> userResponse  = new ArrayList<>();
+
+		List<UserDto> users = userService.getUsers(page, limit);
+
+		for(UserDto userDto: users){
+			UserResponse user = new UserResponse();
+			BeanUtils.copyProperties(userDto, user);
+			userResponse.add(user);
+		}
+
+		return userResponse;
+
 	}
 
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_XML_VALUE)
