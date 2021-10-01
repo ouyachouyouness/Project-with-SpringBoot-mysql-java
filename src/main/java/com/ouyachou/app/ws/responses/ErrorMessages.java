@@ -4,7 +4,7 @@ package com.ouyachou.app.ws.responses;
 
 public enum ErrorMessages {
 
-    MISSING_REQUIRED_FIELD("Missing required field."),
+    MISSING_REQUIRED_FIELD("Missing required field haha."),
     RECORD_ALREADY_EXISTS("Record already exists."),
     INTERNAL_SERVER_ERROR("Internal Bright coding server error."),
     NO_RECORD_FOUND("Record with provided id is not found.");

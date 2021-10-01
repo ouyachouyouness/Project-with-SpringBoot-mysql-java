@@ -1,6 +1,7 @@
 package com.ouyachou.app.ws.Controllers;
 
 import com.ouyachou.app.ws.Entites.UserEntity;
+import com.ouyachou.app.ws.exception.UserException;
 import com.ouyachou.app.ws.request.UserRequest;
 import com.ouyachou.app.ws.responses.ErrorMessages;
 import com.ouyachou.app.ws.responses.UserResponse;
@@ -23,10 +24,10 @@ public class UserController {
 	UserService userService;
 
 
-	@PostMapping(consumes =MediaType.APPLICATION_XML_VALUE, produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping
 	public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest ) throws Exception {
 
-		if(userRequest.getFirstName().isEmpty()) throw new Exception(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+		if(userRequest.getFirstName().isEmpty()) throw new UserException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
 
 
