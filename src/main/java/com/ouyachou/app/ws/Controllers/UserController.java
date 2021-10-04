@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class UserController {
 
 
 	@PostMapping
-	public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest ) throws Exception {
+	public ResponseEntity<UserResponse> createUser(@RequestBody @Valid UserRequest userRequest ) throws Exception {
 
 		if(userRequest.getFirstName().isEmpty()) throw new UserException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
@@ -46,8 +47,8 @@ public class UserController {
 		return new ResponseEntity<UserResponse>(userResponse,HttpStatus.CREATED);
 	}
 
-	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-	public List<UserResponse> getAllUsers(@RequestParam(value = "page") int page,@RequestParam(value = "limit") int limit){
+	@GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	public List<UserResponse> getAllUsers(@RequestParam(value = "page", defaultValue = "1") int page,@RequestParam(value = "limit", defaultValue = "15") int limit){
 
 		List<UserResponse> userResponse  = new ArrayList<>();
 

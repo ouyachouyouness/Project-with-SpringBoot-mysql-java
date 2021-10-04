@@ -11,13 +11,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,11 +120,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getUsers(int page, int limit) {
 
+        if(page>0) page-=1;
+
         List<UserDto> usersDto = new ArrayList<>();
 
-        Pageable pageableRequest = (Pageable) PageRequest.of(page, limit);
+        Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<UserEntity> userPage = userRepository.findAll((org.springframework.data.domain.Pageable) pageableRequest);
+        Page<UserEntity> userPage = userRepository.findAll(pageableRequest);
 
         List<UserEntity> users = userPage.getContent();
 
