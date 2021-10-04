@@ -3,6 +3,7 @@ package com.ouyachou.app.ws.request;
 
 
 import javax.validation.constraints.*;
+import java.util.List;
 
 public class UserRequest {
 
@@ -23,6 +24,17 @@ public class UserRequest {
     @Size(max=12, message = "mot de passe doit avoir au max 12 caracters")
     @Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\\]).{8,32}$")
     private String password;
+
+    private List<AdressRequest> addresses;
+    public List<AdressRequest> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<AdressRequest> addresses) {
+        this.addresses = addresses;
+    }
+
+
 
 
     public void setFirstName(String firstName) {
