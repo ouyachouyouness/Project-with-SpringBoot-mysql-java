@@ -8,6 +8,7 @@ import com.ouyachou.app.ws.responses.UserResponse;
 import com.ouyachou.app.ws.services.UserService;
 import com.ouyachou.app.ws.repositories.UserRepository;
 import com.ouyachou.app.ws.shared.dto.UserDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,13 @@ public class UserController {
 
 
 
-		UserDto userDto = new UserDto();
+		//UserDto userDto = new UserDto();
+		ModelMapper modelMapper = new ModelMapper();
 
-		BeanUtils.copyProperties(userRequest, userDto);
+		UserDto userDto = modelMapper.map(userRequest, UserDto.class);
+
+
+		//BeanUtils.copyProperties(userRequest, userDto);
 
 		UserDto createUser = userService.createUser(userDto);
 
